@@ -1,0 +1,38 @@
+[project]
+name = "syn86"
+version = "0.1.0"
+src = "src"
+out = "build"
+
+[linux]
+compiler = "gcc"
+standard = "c11"
+cflags = ["-O2", "-Wall", "-Wextra", "-Wpedantic"]
+defines = []
+include_dirs = ["src", "third_party/emu8950"]
+lib_dirs = []
+libs = ["m"]
+
+[windows]
+compiler = "gcc"
+standard = "c11"
+cflags = ["-O2", "-Wall", "-Wextra", "-Wpedantic"]
+defines = []
+include_dirs = ["src", "third_party/emu8950"]
+lib_dirs = []
+libs = ["m"]
+
+[graphics]
+backend = "sdl-renderer"
+
+[deps.sdl3]
+enabled = true
+path = "vendor/SDL"
+linkage = "shared"
+
+[profile.cart-sdl.deps.sdl3]
+path = "../cart/vendor/SDL"
+linkage = "static"
+
+[profile.cart-sdl.linux]
+libs = ["pthread"]
