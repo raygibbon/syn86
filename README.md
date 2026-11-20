@@ -1,6 +1,6 @@
 # SYN86
 
-C11 + SDL3 + CART retro music and sound creation toolkit.
+C11 + SDL3 retro music and sound creation toolkit. Builds independently of CART.
 
 **Goal:** create original music and sound effects once, then export to multiple targets. Wolfenstein 3D is one target, not the application architecture. DOS/QBASIC games, PC Speaker, WAV and MIDI support are on the roadmap.
 
@@ -13,23 +13,21 @@ C11 + SDL3 + CART retro music and sound creation toolkit.
 
 ## Building on Linux
 
-With a system SDL3 development package:
+Install a C11 compiler, SDL3 development headers and pkg-config, then:
 
 ```sh
-cc -std=c11 -O2 -Isrc -Ithird_party/emu8950 \
- src/main.c src/opl.c src/imf.c \
- third_party/emu8950/emu8950.c third_party/emu8950/emuadpcm.c \
- -o syn86 $(pkg-config --cflags --libs sdl3) -lm
-./syn86
-./syn86 demo.imf
+./build.sh
+./build/syn86
+./build/syn86 demo.imf
 ```
 
-With [CART](https://github.com/raygibbon/cart), configure a local SDL3 dependency (the default expected location is `vendor/SDL`) and run `cart build`. A `cart-sdl` profile points at `../cart/vendor/SDL`.
+For the standalone IMF encoding test:
 
 ```sh
-cc -std=c11 -Wall -Wextra -Werror -Isrc tests/imf_tests.c src/imf.c -o /tmp/syn86-imf-tests
-/tmp/syn86-imf-tests
+./build.sh test
 ```
+
+CART is a **private, optional developer convenience**, not a supported public prerequisite. The included `cart.toml` may be used locally with an independently supplied SDL3 checkout. Public builds do not need CART, and this project makes no assumption that CART will be published.
 
 The IMF export is a proof of concept, **not yet** a song editor, general IMF importer, or Wolf3D archive builder. Refer to [roadmap](docs/ROADMAP.md) and [format notes](docs/FORMATS.md).
 
